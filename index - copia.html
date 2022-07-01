@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+    <style>
+        /* Se importa la tipografía desde google fonts*/
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Poppins&display=swap');
+
+        @media (min-width: 992px) {
+            .container {
+                max-width: 900px;
+            }
+        }
+
+        .card,
+        .card-img-top {
+            border: none;
+            border-radius: 0 0;
+        }
+
+        /* Texto general */
+        body {
+
+            /*background-repeat: repeat;*/
+            background-color: #e3e4d4;
+            font-family: 'Poppins', sans-serif;
+            padding: 0;
+            margin: 1rem;
+            width: 95vw;
+            height: 95vh;
+            align-items: center;
+        }
+
+        /*Panel contiene a las demás divs*/
+        .panel {
+            font-family: 'Poppins', sans-serif;
+            /*Auto sirve para que se adapte al tamaño*/
+            height: auto;
+            width: auto;
+            margin: 100px;
+            padding: 5px;
+            /*display: flex; lo sacamos porque estiraba el cuadrado*/
+            /*flex-direction: column;*/
+            justify-content: center;
+            align-items: center;
+            background-color: #e3e4d4;
+        }
+
+        .question-container {
+            font-family: 'Nunito', sans-serif;
+            margin: 10px;
+            padding: 5px;
+            width: 80vw;
+            height: 10vh;
+           
+            font-size: x-large;
+            text-align: center;
+        }
+
+        .result {
+            font-family: 'Nunito', sans-serif;
+            margin: 10px;
+            padding: 5px;
+            width: 80vw;
+            height: 10vh;
+            text-align: center;
+            font-size: 50px;
+        }
+
+        .option-container {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: space-around;
+            margin: 10px;
+            padding: 5px;
+            width: 80vw;
+            height: 20vh;
+            /* background-color: #9eb1b3;*/
+        }
+
+        .option {
+            font-family: 'Poppins', sans-serif;
+            padding: 10px;
+            width: 15vw;
+            height: 10vh;
+            font-size: larger;
+            background-color: #3CB371;
+            border: none;
+            border-radius: 0.5rem;
+            
+        }
+
+        /*Cuando una posa el mouse encima y se pone blanco*/
+        .option:hover {
+            font-family: 'Poppins', sans-serif;
+            background-color: #90EE90;
+        }
+
+        .navigation {
+            font-family: 'Nunito', sans-serif;
+            width: 80vw;
+            height: 10vh;
+            margin: 10px;
+            padding: 5px;
+            display: flex;
+            justify-content: space-around;
+            border-radius: 0.5rem;
+            /*background-color:#c7dddf;*/
+        }
+
+        .evaluate,
+        .next {
+            font-family: 'Nunito', sans-serif;
+            width: 30vw;
+            height: 8vh;
+            padding: 5px;
+            font-size: larger;
+        }
+
+        .evaluate {
+            font-family: 'Nunito', sans-serif;
+            color: white;
+            background-color:  #3CB371;
+            /* Purple */
+            ;
+            border: none;
+            border-radius: 0.5rem;
+        }
+
+        .next {
+            font-family: 'Nunito', sans-serif;
+            color: white;
+            background-color:  #3CB371;
+            /* Purple */
+            ;
+            border: none;
+            border-radius: 0.5rem;
+        }
+
+        .welcome {
+            font-family: 'Nunito', sans-serif;
+            margin: 10px;
+            padding: 200px;
+            text-align: center;
+            font-size: 50px;
+        }
+
+        .btn {
+            font-family: 'Nunito', sans-serif;
+            background-color:  #3CB371;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 28px;
+            border-radius: 0.5rem;
+        }
+
+        /* GLOBAL STYLES
+-------------------------------------------------- */
+        /* Padding below the footer and lighter body text */
+        body {
+            margin-right: 2rem;
+            margin-left: 2rem;
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+            color: #5a5a5a;
+        }
+
+        /* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+        /* Carousel base class */
+        .carousel {
+            margin-bottom: 4rem;
+        }
+
+        /* Since positioning the image, we need to help out the caption */
+        .carousel-caption {
+            bottom: 3rem;
+            z-index: 10;
+        }
+
+        /* Declare heights because of positioning of img element */
+        .carousel-item {
+            height: 32rem;
+        }
+
+        .carousel-item>img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            height: 32rem;
+        }
+
+        /* MARKETING CONTENT
+-------------------------------------------------- */
+        /* Center align the text within the three columns below the carousel */
+        .marketing .col-lg-4 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .marketing h2 {
+            font-weight: 400;
+        }
+
+        /* rtl:begin:ignore */
+        .marketing .col-lg-4 p {
+            margin-right: .75rem;
+            margin-left: .75rem;
+        }
+
+        /* rtl:end:ignore */
+        /* Featurettes
+------------------------- */
+        .featurette-divider {
+            margin: 5rem 0;
+            /* Space out the Bootstrap <hr> more */
+        }
+
+        /* Thin out the marketing headings */
+        .featurette-heading {
+            font-weight: 300;
+            line-height: 1;
+            /* rtl:remove */
+            letter-spacing: -.05rem;
+        }
+
+        /* RESPONSIVE CSS
+-------------------------------------------------- */
+        @media (min-width: 40em) {
+
+            /* Bump up size of carousel content */
+            .carousel-caption p {
+                margin-bottom: 1.25rem;
+                font-size: 1.25rem;
+                line-height: 1.4;
+            }
+
+            .featurette-heading {
+                font-size: 50px;
+            }
+        }
+
+        @media (min-width: 62em) {
+            .featurette-heading {
+                margin-top: 7rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <img src="http://farm6.static.flickr.com/5169/5330149116_db734622dc_z.jpg"/>
+                </svg>
+                <div class="container">
+                    <div class="carousel-caption text-start">
+                        <h1>Plantas de Chile</h1>
+                        <p>Observando y conociendo nuestra flora nativa.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <rect width="100%" height="100%" fill="#777" />
+                </svg>
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>Plantas de Chile</h1>
+                        <p>¿Cuánto sabes sobre flora nativa? Sigue leyendo y desúbrelo.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <rect width="100%" height="100%" fill="#777" />
+                </svg>
+                <div class="container">
+                    <div class="carousel-caption text-end">
+                        <h1>Plantas de Chile</h1>
+                        <p>Recursos y datos acerca de la flora nativa de Chile.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <header class="container">
+        <div class="row">
+            <div class="col-12 py-3">
+                <h1 class="text-center mt-3 mb-4 fs-2">Plantas de Chile</h1>
+                <p class="lead text-center mx-auto w-75">El proyecto tiene como objetivo familiarizar a personas interesadas en botánica y en la flora nativa de Chile por medio de una trivia con preguntas e información sobre el tema.</p>
+                <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">Carousel</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarCollapse">
+                            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Link</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                                </li>
+                            </ul>
+                            <form class="d-flex">
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <hr class="featurette-divider">
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">El bosque templado valdiviano<span class="text-muted"></span></h2>
+            <p class="lead">Es una ecorregión del centro-sur de Chile y Patagonia Argentina. Se caracteriza por tener bosques siempre verdes de múltiples estratos, en un clima templado-lluvioso u oceánico. Se trata del único bosque templado lluvioso y bosque templado caducifolio de América del Sur.</p>
+        </div>
+        <div class="col-md-5">
+            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title>Placeholder</title>
+                <img src="500a.webp"/>
+            </svg>
+        </div>
+    </div>
+    <hr class="featurette-divider">
+    <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading">El desierto florido<span class="text-muted"></span></h2>
+            <p class="lead">Es un fenómeno que se produce en el desierto de Atacama, el más árido del planeta, y consiste en la aparición de una gran diversidad de flores en aquellos años en que las precipitaciones son inusuales y superan el rango normal para el desierto.</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+            <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+            </svg>
+        </div>
+    </div>
+    <!--Panel preguntas-->
+    <div class="panel bg-white mb-4 g-0 shadow-sm">
+        <div class="row align-items-center">
+            <div class="result">
+            </div>
+            <div class="question-container" id="question"> Pregunta va aquí. </div>
+            <div class="option-container">
+                <button class="option" onclick="" id="op1">option1</button>
+                <button class="option" id="op2">option2</button>
+                <button class="option" id="op3">option3</button>
+            </div>
+            <div class="navigation">
+                <button class="evaluate">Ver resultado</button>
+                <button class="next" id="next">Siguiente</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section class="container" id="antecedentes">
+        <div class="row">
+            <div class="col-12 pt-3 pb-5">
+                <h3 class="text-center mt-5 mb-4 text-decoration-underline">Antecedentes</h3>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 pb-3">
+                    <div class="col mb-3">
+                        <div class="card h-100 shadow-sm">
+                            <img src="img/antecedente-thumb-0.webp" class="card-img-top" alt="Nombre de la tipo" />
+                            <div class="card-body">
+                                <h6 class="card-title">Árboles nativos</h6>
+                                <p class="card-text small"><a href="http://www.chilebosque.cl/arboles.html" class="stretched-link">Conoce más &rarr;</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-3">
+                        <div class="card h-100 shadow-sm">
+                            <img src="img/antecedente-thumb-1.webp" class="card-img-top" alt="Nombre de la tipo" />
+                            <div class="card-body">
+                                <h6 class="card-title">Trepadoras y epífitas</h6>
+                                <p class="card-text small"><a href="http://www.chilebosque.cl/epiv_lab.jpg" class="stretched-link">Conoce más &rarr;</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-3">
+                        <div class="card h-100 shadow-sm">
+                            <img src="img/antecedente-thumb-2.webp" class="card-img-top" alt="Nombre de la tipo" />
+                            <div class="card-body">
+                                <h6 class="card-title">Orquídeas</h6>
+                                <p class="card-text small"><a href="http://www.chilebosque.cl/orch_lab.jpg" class="stretched-link">Conoce más &rarr;</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-3">
+                        <div class="card h-100 shadow-sm">
+                            <img src="img/antecedente-thumb-3.webp" class="card-img-top" alt="Nombre de la tipo" />
+                            <div class="card-body">
+                                <h6 class="card-title">Helechos</h6>
+                                <p class="card-text small"><a href="http://www.chilebosque.cl/helechos.html" class="stretched-link">Conoce más &rarr;</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="mx-4 text-muted"> Es importante que aquí indique qué partes toma de cada antecedente. También puede sumar alguna indicación que apoye la correctar lectura de su Wireframe. Recuerde que puede usar <a href="https://wireframe.cc/" target="_blank">wireframe.cc</a>, <a href="https://youtu.be/vozIqevBUNk" target="_blank">AdobeXD</a>, <a href="https://youtu.be/6t_dYhXyYjI" target="_blank">Figma</a> o el programa que más le acomode para resolver esta versión esquemática de la página de manera rápida, obtieniendo un resultado claro. </p>
+            </div>
+        </div>
+    </section>
+    <footer class="bg-secondary">
+        <div class="container text-white-50">
+            <div class="row py-3">
+                <div class="col-12">
+                    <p class="d-flex justify-content-between small p-1 m-0">
+                        <a href="index.html">Nombre del proyecto</a>
+                        <!--reemplaza el # que sigue con vínculo a tu propio GitHub-->
+                        <a href="#" class="d-none d-lg-inline">Carla J. Matus © 2022</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        const Questions = [{
+            id: 0,
+            q: "¿Cuál de estas coníferas NO es nativa?",
+            a: [{
+                text: "Araucaria",
+                isCorrect: false
+            }, {
+                text: "Pino insigne",
+                isCorrect: true
+            }, {
+                text: "Alerce patagónico",
+                isCorrect: false
+            }],
+            b: "Siguiente"
+        }, {
+            id: 1,
+            q: "¿Cuál de estas flores es nativa?",
+            a: [{
+                text: "Rosa mosqueta",
+                isCorrect: false
+            }, {
+                text: "Aromo",
+                isCorrect: false
+            }, {
+                text: "Alstroemeria",
+                isCorrect: true
+            }],
+            b: "Siguiente"
+        }, {
+            id: 2,
+            q: "¿Cuál de estos paisajes existe en Chile?",
+            a: [{
+                text: "Blue",
+                isCorrect: false
+            }, {
+                text: "Estepa andina",
+                isCorrect: true
+            }, {
+                text: "Selva tropical",
+                isCorrect: false
+            }],
+            b: "Comenzar de nuevo"
+        }]
+        // Empezar
+        var start = true;
+        // Iterar a lo largo de los numeros de preguntas
+        function iterate(id) {
+            // Mostrar resultado arriba de la pregunta
+            var result = document.getElementsByClassName("result");
+            result[0].innerText = "";
+            // Crea variable caja de pregunta
+            const question = document.getElementById("question");
+            // Cambiar texto por el de cada pregunta del JSON
+            question.innerText = Questions[id].q;
+            // Crea variables para llamar a las opciones
+            const op1 = document.getElementById('op1');
+            const op2 = document.getElementById('op2');
+            const op3 = document.getElementById('op3');
+            // Cambiar texto por el de cada opción del JSON
+            op1.innerText = Questions[id].a[0].text;
+            op2.innerText = Questions[id].a[1].text;
+            op3.innerText = Questions[id].a[2].text;
+            // Crea variable para llamar al botón
+            const next = document.getElementById('next');
+            // Cambiar texto por el de cada resultado del JSON
+            next.innerText = Questions[id].b;
+            // Ver si las opciones son true según JSON
+            op1.value = Questions[id].a[0].isCorrect;
+            op2.value = Questions[id].a[1].isCorrect;
+            op3.value = Questions[id].a[2].isCorrect;
+            // Se crea variable para ver si está seleccionada opción
+            var selected = "";
+            // Selecciona op1 y cambia a amarillo, se guarda en variable si es correcta o no
+            op1.addEventListener("click", () => {
+                op1.style.backgroundColor = "LightGreen";
+                op2.style.backgroundColor = "MediumSeaGreen";
+                op3.style.backgroundColor = "MediumSeaGreen";
+                selected = op1.value;
+            })
+            // Selecciona op2 y cambia a amarillo, se guarda en variable si es correcta o no
+            op2.addEventListener("click", () => {
+                op1.style.backgroundColor = "MediumSeaGreen";
+                op2.style.backgroundColor = "LightGreen";
+                op3.style.backgroundColor = "MediumSeaGreen";
+                selected = op2.value;
+            })
+            // Selecciona op3 y cambia a amarillo, se guarda en variable si es correcta o no
+            op3.addEventListener("click", () => {
+                op1.style.backgroundColor = "MediumSeaGreen";
+                op2.style.backgroundColor = "MediumSeaGreen";
+                op3.style.backgroundColor = "LightGreen";
+                selected = op3.value;
+            })
+            // Se crea otra variable que se llama evaluate y llama al botón de revisar
+            const evaluate = document.getElementsByClassName("evaluate");
+            // Cuando haces click, te dice si estás bien o si debes intentar de nuevo 
+            evaluate[0].addEventListener("click", () => {
+                if (selected == "true") {
+                    result[0].innerHTML = "¡Bien! 🤩";
+                    result[0].style.color = "green";
+                } else {
+                    result[0].innerHTML = "Intenta otra vez ☹️";
+                    result[0].style.color = "gray";
+                }
+            })
+        }
+        // Empieza por la primera pregunta
+        if (start) {
+            iterate("0");
+        }
+        // Llamamos al botón siguiente
+        const next = document.getElementsByClassName('next')[0];
+        var id = 0;
+        // Al hacer clic, la variable start cambia de valor, indicando que no estamos en la primera pregunta
+        next.addEventListener("click", () => {
+            start = false;
+            // Si no estamos en el final, avanza uno y corre la función iterate.
+            if (id < 2) {
+                id++;
+                iterate(id);
+                // El console log muestra en cuál vas y si está funcionando el código.
+                console.log(id);
+            } else {
+                // Cuando SI estamos en el final, el id vuelve al principio (pregunta 1) y vuelve a iterar.
+                id = 0;
+                iterate(id)
+            }
+        })
+    </script>
+    <script>
+        // Reemplaza los colores dentro del paréntesis cuadrado, respetando las comillas.
+        // Si necesitas que un color ocupe más espacio en la paleta: debes repetirlo.
+        var colores = ["#F2C2D4", "#F2C2D4", "#F2C2D4", "#F2C2D4", "#F2C2D4", "#A7F2F2", "#A7F2F2", "#05AFF2", "#FEF204", "#F25D07", "#03A65A", "#000000"];
+        // No reemplaces nada de lo que sigue.
+        var n = colores.length;
+        var w = 100 / n;
+        for (var x = 0; x < n; x++) {
+            document.getElementById("colores").innerHTML += '<rect width="' + w + '" height="20" x="' + x * w + '" y="0" fill="' + colores[x] + '" stroke="' + colores[x] + '"/>';
+        }
+        document.querySelectorAll("a").forEach((a) => a.classList.add("link-dark"));
+    </script>
+</body>
+
+</html>
